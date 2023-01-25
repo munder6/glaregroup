@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "134742593480",
+    "project_id": "glaregroup-ceb36",
+    "storage_bucket": "glaregroup-ceb36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134742593480:android:4a2700cbcc9a2e79bcbafd",
+        "android_client_info": {
+          "package_name": "com.glare.glaregroup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134742593480-ele2ua2pjsc8f6e5e1d188l52llao6fu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.glare.glaregroup",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "134742593480-7r8b16e7a61lnjqguvpv2ibmchdiauuo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBissmL9OlzT1UCbdVcg1QjwrI-r25g3xU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "134742593480-7r8b16e7a61lnjqguvpv2ibmchdiauuo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
