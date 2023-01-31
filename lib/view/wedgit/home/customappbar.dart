@@ -58,14 +58,14 @@ class CustomAppBar extends StatelessWidget {
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(10)
             ),
-            child: IconButton(
-                onPressed: onPressedIcon,
-                icon: Icon(
-                  Icons.notifications_active_outlined,
-                  size: 28,
-                  color: Colors.grey[600],
-                )
-            ),
+            // child: IconButton(
+            //     onPressed: onPressedIcon,
+            //     icon: Icon(
+            //       Icons.notifications_active_outlined,
+            //       size: 28,
+            //       color: Colors.grey[600],
+            //     )
+            // ),
           ),
           
         ],

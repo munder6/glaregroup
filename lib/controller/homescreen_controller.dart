@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/view/screens/homescreen.dart';
 
 import '../view/screens/home.dart';
+import '../view/screens/settings.dart';
 
 abstract class HomeScreenController extends GetxController{
 
@@ -19,25 +21,34 @@ class HomeScreenControllerImp extends HomeScreenController{
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
-        Center(child: Text("Settings"),)
+        Center(child: Text("Notifications"),)
       ],) ,
     Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
         Center(child: Text("Profile"),)
       ],) ,
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Center(child: Text("Favorite"),)
-      ],) ,
+    SettingScreen()
   ];
 
-  List titleBottomAppbar = [
-    "Home",
-    "Settings",
-    "Profile",
-    "Favorite"
+  List bottomAppbar = [
+    {
+      "title" : "Home",
+      "icon" : Icons.home
+    },
+    {
+      "title" : "Notifications",
+      "icon" : Icons.notifications_active_outlined
+    },
+    {
+      "title" : "Profile",
+      "icon" : Icons.person
+    },
+    {
+      "title" : "Settings",
+      "icon" : Icons.settings
+    },
+
   ];
 
   @override
