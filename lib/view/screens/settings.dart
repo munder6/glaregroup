@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:glaregroup/core/constant/color.dart';
 import 'package:glaregroup/core/constant/imageasset.dart';
+import '../../controller/settings_controller.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SettingsController controller = Get.put(SettingsController());
     return Container(
       child: ListView(
         children: [
@@ -21,7 +23,7 @@ class SettingScreen extends StatelessWidget {
                 color: AppColor.primaryColor,
               ),
               Positioned(
-                  top: Get.width / 4.5,
+                  top: Get.width / 7.5,
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -29,14 +31,14 @@ class SettingScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(100)
                     ),
                     child: CircleAvatar(
-                      radius: 40,
+                      radius:  80,
                       backgroundColor: Colors.grey[100],
                       backgroundImage: const AssetImage(AppImageAsset.logo),
               ),
                   )),
             ],
           ),
-          const SizedBox(height: 100),
+          const SizedBox(height: 150),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Card(
@@ -45,7 +47,7 @@ class SettingScreen extends StatelessWidget {
                   ListTile(
                     onTap: (){},
                     title: const Text("Disable Notifications"),
-                    trailing: const Icon(Icons.notifications_off_outlined),
+                    trailing: Switch(onChanged: (val){},value: false,),
                   ),
                 //  const Divider(),
                   ListTile(
@@ -68,7 +70,7 @@ class SettingScreen extends StatelessWidget {
                 //  const Divider(),
                   ListTile(
                     onTap: (){
-                      
+                      controller.logout();
                     },
                     title: const Text("Logout"),
                     trailing: const Icon(Icons.logout),
