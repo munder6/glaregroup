@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/controller/homescreen_controller.dart';
+import 'package:glaregroup/core/constant/color.dart';
 
 import 'custombottomappbar.dart';
 
@@ -12,8 +13,9 @@ class CustomBottomAppBarHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeScreenControllerImp>(builder: (controller) => BottomAppBar(
+      height: 50,
+      color: Colors.white,
       shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
       child: Row(
         children: [
           ...List.generate(
@@ -22,6 +24,7 @@ class CustomBottomAppBarHome extends StatelessWidget {
             return
               index == 2 ? const Spacer() :
               CustomButtonAppBar(
+
                 textBottom: controller.bottomAppbar[i]['title'],
                 iconData: controller.bottomAppbar[i]['icon'],
 
@@ -35,3 +38,6 @@ class CustomBottomAppBarHome extends StatelessWidget {
     ));
   }
 }
+
+
+

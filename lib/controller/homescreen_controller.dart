@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/view/screens/homescreen.dart';
-
-import '../view/screens/home.dart';
-import '../view/screens/settings.dart';
+import 'package:glaregroup/view/screens/notificationscreen.dart';
+import 'package:glaregroup/view/screens/offersscreen.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:glaregroup/view/screens/settings.dart';
 
 abstract class HomeScreenController extends GetxController{
 
@@ -18,35 +19,27 @@ class HomeScreenControllerImp extends HomeScreenController{
 
   List<Widget> listPage = [
     const HomeScreen(),
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Center(child: Text("Notifications"),)
-      ],) ,
-    Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Center(child: Text("Profile"),)
-      ],) ,
-    SettingScreen()
+    const NotificationScreen(),
+    const OffersScreen(),
+    const SettingScreen()
   ];
 
   List bottomAppbar = [
     {
       "title" : "Home",
-      "icon" : Icons.home
+      "icon" : EvaIcons.home
     },
     {
       "title" : "Notifications",
-      "icon" : Icons.notifications_active_outlined
+      "icon" : EvaIcons.bellOutline
     },
     {
-      "title" : "Profile",
-      "icon" : Icons.person
+      "title" : "Offers",
+      "icon" : EvaIcons.flash
     },
     {
       "title" : "Settings",
-      "icon" : Icons.settings
+      "icon" : EvaIcons.settings
     },
 
   ];

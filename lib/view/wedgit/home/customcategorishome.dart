@@ -16,9 +16,9 @@ class CustomCatHome extends GetView<HomeControllerImp> {
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
-      height: 90,
+      height: 70,
       child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(width: 10,),
+        separatorBuilder: (context, index) => const SizedBox(width: 1,),
         itemCount: controller.categories.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index){
@@ -43,26 +43,55 @@ class Categories extends GetView<HomeControllerImp> {
       onTap: (){
         controller.goToItems(controller.categories, i! , categoriesModel.categoriesId!);
       },
-      child: Column(children: [
-        Container(
-          decoration: BoxDecoration(
-
-            borderRadius: BorderRadius.circular(12),
-
-            color: AppColor.threeColor,
+      child: Column(
+        children: [
+        Card(
+        elevation: 5,
+          shadowColor: AppColor.black.withOpacity(0.3),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          height: 64.5,
-          width: 64.5,
-          child:
-          SvgPicture.network(
-              "${AppLink.imageCategories}/${categoriesModel.categoriesImage}"
-          ),
-        ),
-        const SizedBox(height: 3,),
-        Text("${translateDtaBase(categoriesModel.categoriesNameAr, categoriesModel.categoriesName)}")
-      ],),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10)
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              height: 50,
+              width: 130,
+              child:
+              Row(
+                children: [
+                  SvgPicture.network(
+                      "${AppLink.imageCategories}/${categoriesModel.categoriesImage}" , width: 35,
+                  ),
+                  const SizedBox(width: 7),
+                  Text("${translateDtaBase(categoriesModel.categoriesNameAr, categoriesModel.categoriesName)}")
+                ],
+              ),
+            ),
+          )],
+      ),
     );
   }
 }
+
+
+// Container(
+// decoration: BoxDecoration(
+//
+// borderRadius: BorderRadius.circular(12),
+//
+// color: AppColor.threeColor,
+// ),
+// padding: const EdgeInsets.symmetric(horizontal: 5),
+// height: 64.5,
+// width: 64.5,
+// child:
+// SvgPicture.network(
+// "${AppLink.imageCategories}/${categoriesModel.categoriesImage}"
+// ),
+// ),
+// const SizedBox(height: 3,),
+// Text("${translateDtaBase(categoriesModel.categoriesNameAr, categoriesModel.categoriesName)}")
 

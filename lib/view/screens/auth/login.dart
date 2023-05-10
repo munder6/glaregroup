@@ -41,7 +41,7 @@ class Login extends StatelessWidget {
             child: ListView(
               children: [
                 const LogoAuth(),
-                //const SizedBox(height: 20,),
+                const SizedBox(height: 30,),
                 CustomTextTitleAuth(text: "2".tr,),
                 const SizedBox(height: 15,),
                 CustomTextBodyAuth(text: '4'.tr,),

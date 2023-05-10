@@ -42,7 +42,7 @@ class FavoriteController extends GetxController {
           backgroundColor: AppColor.primaryColor,
           margin: const EdgeInsets.all(20),
           borderRadius: 20,
-          snackPosition: SnackPosition.BOTTOM,
+          snackPosition: SnackPosition.TOP,
             icon: const Icon(Icons.done, color: AppColor.white,),
             title: "39".tr,
             messageText:Text(
@@ -75,7 +75,7 @@ class FavoriteController extends GetxController {
             backgroundColor: AppColor.red,
             margin: const EdgeInsets.all(20),
             borderRadius: 20,
-            snackPosition: SnackPosition.BOTTOM,
+            snackPosition: SnackPosition.TOP,
             icon: const Icon(Icons.done, color: AppColor.white,),
             title: "39".tr,
             messageText:Text(

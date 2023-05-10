@@ -7,6 +7,7 @@ class AppImageAsset {
 
 
   static const String logo                 = "$rootImage/logo.png";
+  static const String address                 = "$rootImage/addaddress.png";
   static const String verfiy                 = "$rootImage/verfiycode.png";
   static const String verfiyemail               = "$rootImage/verfiyemail.png";
   static const String resetpassword               = "$rootImage/resetpassword.png";
@@ -21,4 +22,5 @@ class AppImageAsset {
   static const String onBoardingImageTwo              = "$rootLottie/onBoardingImageTwo.json";
   static const String onBoardingImageThree              = "$rootLottie/onboardingthree.json";
   static const String onBoardingImageFour              = "$rootLottie/onboardingfour.json";
+  static const String sale              = "$rootImage/sale.png";
 }

@@ -100,4 +100,22 @@ class ChoseLang extends StatelessWidget {
   }
 }
 
+class AddAddressPhoto extends StatelessWidget {
+  const AddAddressPhoto({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(AppImageAsset.address,height: 200,);
+  }
+}
+
+class CheckoutPhoto extends StatelessWidget {
+  const CheckoutPhoto({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Lottie.asset(AppImageAsset.onBoardingImageTwo,height: 300);
+  }
+}
+
 

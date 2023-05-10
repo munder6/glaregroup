@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/core/services/services.dart';
 
@@ -5,6 +6,7 @@ import '../core/class/statusrequest.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../data/model/itemsmodel.dart';
 import '../data/remote/itemsdata.dart';
+import 'home_controller.dart';
 
 
 
@@ -15,23 +17,27 @@ abstract class ItemsController extends GetxController {
  goToPageProductDetails(ItemsModel itemsModel);
 }
 
-class ItemsControllerImp extends ItemsController {
+class ItemsControllerImp extends SearchMixController {
 
   List categories = [] ;
   String? catid ;
   int? selectedCat ;
 
-  ItemsData testData = ItemsData(Get.find());
+  ItemsData itemsData = ItemsData(Get.find());
 
   List data = [];
 
   late StatusRequest statusRequest;
   MyServices myServices = Get.find();
 
+  String deliverytime = "Loading ...";
+
 
 
   @override
   void onInit() {
+    deliverytime = myServices.sharedPreferences.getString("deliverytime")!;
+    search = TextEditingController();
     intialData();
     super.onInit();
   }
@@ -56,7 +62,7 @@ class ItemsControllerImp extends ItemsController {
   getItems(categoryid) async {
     data.clear();
     statusRequest = StatusRequest.loading;
-    var response = await testData.getData(categoryid, myServices.sharedPreferences.getString("id")!);
+    var response = await itemsData.getData(categoryid, myServices.sharedPreferences.getString("id")!);
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

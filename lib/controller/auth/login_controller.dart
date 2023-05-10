@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:glaregroup/core/class/statusrequest.dart';
 import 'package:glaregroup/core/constant/routes.dart';
 import 'package:glaregroup/core/services/services.dart';
-
 import '../../core/constant/color.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../data/auth/login.dart';
@@ -52,10 +51,13 @@ class LoginControllerImp extends LoginController {
           // data.addAll(response['data']);
           if(response['data']['users_approve'] == "1"){
             myServices.sharedPreferences.setString("id", response['data']['users_id']);
+            String userid = myServices.sharedPreferences.getString("id")!;
             myServices.sharedPreferences.setString("username", response['data']['users_name']);
             myServices.sharedPreferences.setString("email", response['data']['users_email']);
             myServices.sharedPreferences.setString("phone", response['data']['users_phone']);
             myServices.sharedPreferences.setString("step", "2");
+            FirebaseMessaging.instance.subscribeToTopic("users");
+            FirebaseMessaging.instance.subscribeToTopic("users${userid}");
             Get.offNamed(AppRoute.homeScreen);
             Get.rawSnackbar(
                 duration: const Duration(seconds: 1),
@@ -63,7 +65,7 @@ class LoginControllerImp extends LoginController {
                 backgroundColor: AppColor.green,
                 margin: const EdgeInsets.all(20),
                 borderRadius: 20,
-                snackPosition: SnackPosition.BOTTOM,
+                snackPosition: SnackPosition.TOP,
                 icon: const Icon(Icons.done, color: AppColor.white,),
                 title: "39".tr,
                 messageText:Text(
@@ -86,7 +88,7 @@ class LoginControllerImp extends LoginController {
               backgroundColor: AppColor.red,
               margin: const EdgeInsets.all(20),
               borderRadius: 20,
-              snackPosition: SnackPosition.BOTTOM,
+              snackPosition: SnackPosition.TOP,
               icon: const Icon(Icons.not_interested, color: AppColor.white,),
               title: "39".tr,
               messageText:Text(

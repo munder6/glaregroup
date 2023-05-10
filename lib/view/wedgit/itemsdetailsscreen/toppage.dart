@@ -13,31 +13,17 @@ class TopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProductDetailsControllerImp controller = Get.put(ProductDetailsControllerImp());
-    return   Stack(
+    return Stack(
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: 250,
-          decoration:   BoxDecoration(
-            color: AppColor.secondColor,
-            borderRadius: const BorderRadius.vertical(bottom: Radius.circular(30)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
+          height: 300,
         ),
-
         Positioned(
-          top: 100,
+          top: 30,
           right: 20,
           left: 20,
           child:
-
           Hero(
             tag: "${controller.itemsModel.itemsId}",
             child: ClipRRect(
@@ -45,7 +31,7 @@ class TopPage extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: "${AppLink.imageItems}/${controller.itemsModel.itemsImage!}",
                   height: 250,
-                  fit: BoxFit.scaleDown,
+                  fit: BoxFit.contain,
                 )),
           ),
         )

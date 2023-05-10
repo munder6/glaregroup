@@ -43,7 +43,6 @@ dependencies:
   http: ^0.13.4
   # Images
   cached_network_image: ^3.2.0
-  image_picker: ^0.7.2+1
   # Animate
   show_up_animation: ^2.0.0
   auto_animated: ^3.0.1
@@ -81,6 +80,10 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   lottie: ^1.4.1
   firebase_core_platform_interface: 4.5.1
+  flutter_ringtone_player: ^3.2.0
+  curved_navigation_bar: ^1.0.3
+  rating_dialog: ^2.0.4
+  eva_icons_flutter: ^3.1.0
 
 dev_dependencies:
   flutter_test:

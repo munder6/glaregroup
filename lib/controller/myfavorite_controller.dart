@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:glaregroup/controller/home_controller.dart';
 import '../core/class/statusrequest.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/services.dart';
 import '../data/model/myfavoritemodel.dart';
 import '../data/remote/myfavorite_data.dart';
 
-class MyFavoriteController extends GetxController {
+class MyFavoriteController extends SearchMixController {
 
 
 
@@ -58,6 +59,7 @@ class MyFavoriteController extends GetxController {
 
   @override
   void onInit() {
+    search = TextEditingController();
     getData();
     super.onInit();
   }

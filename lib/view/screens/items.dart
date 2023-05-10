@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/controller/favorite_controller.dart';
 import 'package:glaregroup/core/class/handlingdataview.dart';
-import 'package:glaregroup/linkapi.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:glaregroup/view/screens/homescreen.dart';
 import '../../controller/items_controller.dart';
-import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../data/model/itemsmodel.dart';
 import '../wedgit/home/customappbar.dart';
@@ -17,7 +15,7 @@ class Items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ItemsControllerImp());
+    ItemsControllerImp controller = Get.put(ItemsControllerImp());
     FavoriteController controllerFav = Get.put(FavoriteController());
     return Scaffold(
       body: Container(
@@ -25,11 +23,16 @@ class Items extends StatelessWidget {
         child:  ListView(
                   children: [
                     CustomAppBar(
+                      mycontroller: controller.search!,
                       onPressedIconFavorite: (){
                         Get.toNamed(AppRoute.myFavorite);
                       },
-                      titleappbar: "49".tr,
                       onPressedIcon: (){
+                        controller.onSearchItems();
+                      },
+                      titleappbar: "49".tr,
+                      onChanged: (val ) {
+                        controller.checkSearch(val);
                       },
                     ),
                     const SizedBox(height: 12),
@@ -38,7 +41,7 @@ class Items extends StatelessWidget {
                       HandlingDataView(
                        statusRequest: controller.statusRequest,
                         widget:
-                      GridView.builder(
+                     !controller.isSearch? GridView.builder(
                          shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: controller.data.length,
@@ -48,11 +51,10 @@ class Items extends StatelessWidget {
 
                              itemBuilder: (BuildContext context , index){
                            controllerFav.isFavorite[controller.data[index]['items_id']] = controller.data[index]['favorite'];
-                         return CustomListItems(
-                             itemsModel: ItemsModel.fromJson(controller.data[index]),
+                         return CustomListItems(itemsModel: ItemsModel.fromJson(controller.data[index]),
                          );
     },
-                )))])),
+                ) : ListItemsSearch(listdatamodel: controller.listdata)))])),
         );
 
   }

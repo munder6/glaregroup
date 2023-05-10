@@ -3,22 +3,22 @@ import 'package:get/get.dart';
 validInput(String val ,int min,int max,String type){
   if (type == "username"){
     if (!GetUtils.isUsername(val)){
-      return "Not valid username";
+      return "87".tr;
     }
   }
   if (type == "email"){
     if (!GetUtils.isEmail(val)){
-      return "Not valid email";
+      return "88".tr;
     }
   }
   if (type == "phone"){
     if (!GetUtils.isPhoneNumber(val)){
-      return "Not valid phone";
+      return "89".tr;
     }
   }
 
   if (val.isEmpty){
-    return "can't be Empty";
+    return "90".tr;
   }
 
   if (val.length < min){

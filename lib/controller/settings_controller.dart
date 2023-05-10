@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,8 +13,11 @@ class SettingsController extends GetxController {
 
 
   logout(){
+    String userid = myServices.sharedPreferences.getString("id")!;
+    FirebaseMessaging.instance.unsubscribeFromTopic("users");
+    FirebaseMessaging.instance.unsubscribeFromTopic("users${userid}");
     myServices.sharedPreferences.clear();
-    Get.offAllNamed(AppRoute.login);
+    Get.offAllNamed(AppRoute.chooseLang);
     Get.rawSnackbar(
         duration: const Duration(seconds: 1),
         barBlur: 10,
@@ -24,7 +28,7 @@ class SettingsController extends GetxController {
         icon: const Icon(Icons.done, color: AppColor.white,),
         title: "39".tr,
         messageText:Text(
-          "69".tr,
+          "71".tr,
           style: const TextStyle(
               color : AppColor.white,
               fontSize: 12),

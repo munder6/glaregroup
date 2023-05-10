@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:glaregroup/controller/myfavorite_controller.dart';
@@ -48,21 +49,13 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("53".tr, textAlign: TextAlign.center, style: TextStyle(fontSize: 12),),
-                    Row(children: [
-                      ...List.generate(5, (index) => const Icon(Icons.star, size: 14,color: Colors.yellow,))
-                    ],)
-                  ],),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
                     Text("54".tr),
-                    Text("${itemsModel.itemsPrice}\$", style: TextStyle(color: AppColor.red, fontSize: 15),),
+                    Text("${itemsModel.itemsPrice}\$", style: const TextStyle(color: AppColor.red, fontSize: 15),),
                     IconButton(
                       onPressed: (){
                         controller.deleteFromFavorite(itemsModel.favoriteId!);
                       },
-                      icon:  Icon(Icons.delete_outline, color: Colors.red),
+                      icon: const Icon(EvaIcons.trash2Outline, color: Colors.red),
                     )
                   ],
                 )
