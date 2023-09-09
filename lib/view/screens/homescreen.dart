@@ -13,56 +13,69 @@ import '../wedgit/home/customcategorishome.dart';
 import '../wedgit/home/listitemshome.dart';
 
 class HomeScreen extends StatelessWidget {
+
+
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     HomeControllerImp controller = Get.put(HomeControllerImp());
+
+    Future<void>_loadResources(bool reload) async {
+      await controller.getData();
+    }
+
+
     return  GetBuilder<HomeControllerImp>(
         builder: (controller) =>
             Scaffold(
-              body: Container(
-
-                color: Colors.grey.shade50,
-                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                margin: const EdgeInsets.only(top: 10),
-                 child: ListView(
-              children: [
-                const Text("Our", style: TextStyle(fontSize: 35),),
-                const Text("Product", style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
-                const SizedBox(height: 20),
-                CustomAppBar(
-                  mycontroller: controller.search!,
-                  onPressedIconFavorite: (){
-                    Get.toNamed(AppRoute.myFavorite);
-                  },
-                  onPressedIcon: (){
-                    controller.onSearchItems();
-                  },
-                  titleappbar: "49".tr,
-                  onChanged: (val ) {
-                  controller.checkSearch(val);
-                  },
-                ),
-                  CustomCardHome(
-                  title: '${controller.titlehomecard}',
-                  body:  '${controller.bodyhomecard}',
-                ),
+              body: RefreshIndicator(
+                color: Colors.black,
+                onRefresh: ()async{
+                  await _loadResources(true);
+                },
+                child: Container(
+                  color: Colors.grey.shade50,
+                   padding: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.only(top: 10),
+                   child: ListView(
+                children: [
+                      const Text("Our", style: TextStyle(fontSize: 35),),
+                      const Text("Product", style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
+                      const SizedBox(height: 20),
+                     CustomAppBar(
+                    mycontroller: controller.search!,
+                    onPressedIconFavorite: (){
+                      Get.toNamed(AppRoute.myFavorite);
+                    },
+                    onPressedIcon: (){
+                      controller.onSearchItems();
+                    },
+                    titleappbar: "49".tr,
+                    onChanged: (val ) {
+                    controller.checkSearch(val);
+                    },
+                  ),
+                    CustomCardHome(
+                    title: controller.titlehomecard,
+                    body:  controller.bodyhomecard,
+                  ),
           HandlingDataView(statusRequest: controller.statusRequest , widget:
-              !controller.isSearch ?  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [
-                    const SizedBox(height: 10),
-                    const SizedBox(height: 10,),
-                    const  CustomCatHome(),
-                    const SizedBox(height: 2,),
-                    Text("153".tr, style: TextStyle(fontSize: 18, color: AppColor.secondColor),),
-                    const ListItemsHome(),
-                  ],
-                ) : ListItemsSearch(listdatamodel: controller.listdata)
+                !controller.isSearch ?  Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                    children:  [
+                      const SizedBox(height: 10),
+                      const SizedBox(height: 10,),
+                      const  CustomCatHome(),
+                      const SizedBox(height: 2,),
+                      Text("153".tr, style: const TextStyle(fontSize: 18, color: AppColor.secondColor),),
+                      const ListItemsHome(),
+                    ],
+                  ) : ListItemsSearch(listdatamodel: controller.listdata)
           )],
-                ),
+                  ),
           ),
+              ),
             ),
 
     );

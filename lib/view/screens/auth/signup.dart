@@ -49,7 +49,7 @@ class SignUp extends StatelessWidget {
               CustomTextFormAuth(
                 isNumber: false,
                 valid: (val){
-                  return validInput(val!, 6, 11, "username");
+                  return validInput(val!, 6, 12, "username");
                 },
                 hinttext: '15'.tr,
                 labeltext: '14'.tr,

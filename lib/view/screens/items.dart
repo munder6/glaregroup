@@ -48,7 +48,6 @@ class Items extends StatelessWidget {
                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                          childAspectRatio: 0.75,
                           crossAxisCount: 2),
-
                              itemBuilder: (BuildContext context , index){
                            controllerFav.isFavorite[controller.data[index]['items_id']] = controller.data[index]['favorite'];
                          return CustomListItems(itemsModel: ItemsModel.fromJson(controller.data[index]),

@@ -58,7 +58,7 @@ dependencies:
   cloud_firestore: ^3.1.9
   # Local Data Cache
   sqflite: ^2.0.2
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.1.1
   path: ^1.8.0
   # Qrcode
   qr_flutter: ^4.0.0
@@ -68,13 +68,13 @@ dependencies:
   dropdown_search: ^3.0.1
   badges: ^2.0.2
   # Icon
-  # flutter_svg: ^1.0.3
+  flutter_svg: ^1.0.3
   font_awesome_flutter: ^10.1.0
   fluttericon: ^2.0.0
   dartz: ^0.10.1
   # Google Auth
   google_sign_in: ^5.3.1
-  device_preview: ^0.7.5
+  #device_preview: ^0.7.5
   responsive_builder: ^0.4.2
   image_pickers: ^2.0.0+2
   flutter_otp_text_field: ^1.1.1
@@ -84,6 +84,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   rating_dialog: ^2.0.4
   eva_icons_flutter: ^3.1.0
+  liquid_pull_to_refresh: ^3.0.1
 
 dev_dependencies:
   flutter_test:

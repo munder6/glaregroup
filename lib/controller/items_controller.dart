@@ -36,7 +36,7 @@ class ItemsControllerImp extends SearchMixController {
 
   @override
   void onInit() {
-    deliverytime = myServices.sharedPreferences.getString("deliverytime")!;
+    //deliverytime = myServices.sharedPreferences.getString("deliverytime")!;
     search = TextEditingController();
     intialData();
     super.onInit();
@@ -75,7 +75,6 @@ class ItemsControllerImp extends SearchMixController {
     update();
   }
 
-  @override
   goToPageProductDetails(itemsModel){
     Get.toNamed("productdetails", arguments: {
       "itemsmodel" : itemsModel

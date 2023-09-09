@@ -35,21 +35,21 @@ class  CartController extends GetxController{
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
-        // Get.rawSnackbar(
-        //     duration: Duration(seconds: 1),
-        //     barBlur: 10,
-        //     backgroundColor: AppColor.primaryColor,
-        //     margin: const EdgeInsets.all(20),
-        //     borderRadius: 20,
-        //     snackPosition: SnackPosition.TOP,
-        //     icon: const Icon(Icons.done, color: AppColor.white,),
-        //     title: "39".tr,
-        //     messageText:Text(
-        //       "57".tr,
-        //       style: const TextStyle(
-        //           color : AppColor.white,
-        //           fontSize: 12),
-        //     ));
+        Get.rawSnackbar(
+            duration: Duration(seconds: 1),
+            barBlur: 10,
+            backgroundColor: AppColor.primaryColor,
+            margin: const EdgeInsets.all(20),
+            borderRadius: 20,
+            snackPosition: SnackPosition.TOP,
+            icon: const Icon(Icons.done, color: AppColor.white,),
+            title: "39".tr,
+            messageText:Text(
+              "57".tr,
+              style: const TextStyle(
+                  color : AppColor.white,
+                  fontSize: 12),
+            ));
         // data.addAll(response['data']);
       } else {
         statusRequest = StatusRequest.failure ;

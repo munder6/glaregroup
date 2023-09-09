@@ -48,31 +48,71 @@ class HomeControllerImp extends HomeController{
   void onInit() {
   search = TextEditingController();
   getData();
+  _loadResources(true);
+  refreshPage();
     initialData();
     super.onInit();
   }
+
+  // @override
+  // getData() async {
+  //   statusRequest = StatusRequest.loading;
+  //   var response = await homeData.getData();
+  //     print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     if (response['status'] == "success") {
+  //       categories.addAll(response['categories']['data']);
+  //       items.addAll(response['items']['data']);
+  //       settingdata.addAll(response['setting']['data']);
+  //       titlehomecard = settingdata[0]['setting_titlehome'];
+  //       bodyhomecard = settingdata[0]['setting_bodyhome'];
+  //       deliverytime = settingdata[0]['setting_deliverytime'];
+  //       myServices.sharedPreferences.setString("deliverytime", deliverytime);
+  //
+  //     } else {
+  //       statusRequest = StatusRequest.failure ;
+  //     }
+  //   }
+  //   update();
+  // }
+
 
   @override
   getData() async {
     statusRequest = StatusRequest.loading;
     var response = await homeData.getData();
-      print("=============================== Controller $response ");
+    print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        categories.addAll(response['categories']['data']);
-        items.addAll(response['items']['data']);
-        settingdata.addAll(response['setting']['data']);
-        titlehomecard = settingdata[0]['setting_titlehome'];
-        bodyhomecard = settingdata[0]['setting_bodyhome'];
-        deliverytime = settingdata[0]['setting_deliverytime'];
-        myServices.sharedPreferences.setString("deliverytime", deliverytime);
-
+      if (response != null && response['status'] == "success") {
+        if (response['categories'] != null && response['categories']['data'] != null) {
+          categories.addAll(response['categories']['data']);
+        }
+        if (response['items'] != null && response['items']['data'] != null) {
+          items.addAll(response['items']['data']);
+        }
+        if (response['setting'] != null && response['setting']['data'] != null) {
+          settingdata.addAll(response['setting']['data']);
+          titlehomecard = settingdata[0]['setting_titlehome'];
+          bodyhomecard = settingdata[0]['setting_bodyhome'];
+          // deliverytime = settingdata[0]['setting_deliverytime'];
+          // myServices.sharedPreferences.setString("deliverytime", deliverytime);
+        }
       } else {
-        statusRequest = StatusRequest.failure ;
+        statusRequest = StatusRequest.failure;
       }
     }
     update();
+  }
+
+
+  Future<void>_loadResources(bool reload) async {
+    await getData();
+  }
+
+  refreshPage(){
+    getData();
   }
 
 

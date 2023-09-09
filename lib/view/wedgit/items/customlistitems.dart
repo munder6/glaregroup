@@ -54,12 +54,6 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                             Text("150".tr, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12),),
-                             Text("${controller.deliverytime} Min", style: const TextStyle(color: AppColor.red),)
-                          ],),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
                               Text("54".tr),
                               Text("${itemsModel.itemsPriceDiscount}\$", style: const TextStyle(color: AppColor.red, fontSize: 15),),
                              GetBuilder<FavoriteController>(builder: (controller) =>  IconButton(
