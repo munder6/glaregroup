@@ -24,7 +24,7 @@ class SignUp extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.backgroundcolor,
         elevation: 0.0,
-        title:  Text("13".tr, style: Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey)),
+        title:  Text("13".tr, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: AppColor.grey)),
       ),
       body: WillPopScope(
     onWillPop: alertExitApp,

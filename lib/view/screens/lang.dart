@@ -19,7 +19,7 @@ class Language extends GetView<LocalController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children:  [
           const SizedBox(height: 90,),
-          Text("1".tr, style: Theme.of(context).textTheme.headline2?.copyWith(color: AppColor.primaryColor),),
+          Text("1".tr, style: Theme.of(context).textTheme.displayMedium?.copyWith(color: AppColor.primaryColor),),
           const Spacer(),
           const ChoseLang(),
           const SizedBox(height: 110,),

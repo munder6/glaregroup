@@ -28,7 +28,13 @@ class OrdersCardList extends GetView<OrdersPendingController> {
               Text("131".tr,style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
               Text("  ${listdata.ordersId}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColor.primaryColor)),
               const Spacer(),
-              Text(Jiffy(listdata.ordersDatetime!, "yyyy-MM-dd").fromNow(), style: const TextStyle(color: AppColor.primaryColor))
+              Text(
+                Jiffy.parse(
+                  listdata.ordersDatetime!,
+                  pattern: "yyyy-MM-dd",
+                ).fromNow(),
+                style: const TextStyle(color: AppColor.primaryColor),
+              )
             ],),
             const Divider(),
             Row(children: [

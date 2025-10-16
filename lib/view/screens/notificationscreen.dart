@@ -45,8 +45,16 @@ class NotificationScreen extends StatelessWidget {
                               right: homeControllerImp.lang == "en" ? -16 : 280,
                               left: homeControllerImp.lang == "ar" ? 16 : 280,
                               top: 16,
-                              child:Text(Jiffy(controller.data[index]['notification_datetime'], "yyyy-MM-dd").fromNow(), style: const TextStyle(color: AppColor.red),),
-                          ) ],
+                              child:Text(
+                                Jiffy.parse(
+                                    controller.data[index]['notification_datetime'].toString(),
+                                    pattern: "yyyy-MM-dd"
+                                ).fromNow(),
+                                style: const TextStyle(color: AppColor.red),
+                              )
+
+                          )
+                          ],
                         ),
                         ),
                       )

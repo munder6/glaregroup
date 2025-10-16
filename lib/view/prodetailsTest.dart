@@ -56,7 +56,7 @@ class ProDetailsTest extends StatelessWidget {
                      children: [
                        Text(translateDtaBase(
                            controller.itemsModel.itemsNameAr,controller.itemsModel.itemsName),
-                         style: Theme.of(context).textTheme.headline2!.copyWith(color: AppColor.primaryColor),
+                         style: Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.primaryColor),
                        ),
                        Container(
                          alignment: Alignment.center,
@@ -80,7 +80,7 @@ class ProDetailsTest extends StatelessWidget {
                    Text(
                        translateDtaBase(
                            controller.itemsModel.itemsDescAr,controller.itemsModel.itemsDesc),
-                       style: Theme.of(context).textTheme.bodyText2),
+                       style: Theme.of(context).textTheme.bodyMedium),
                    const SizedBox(height: 50),
                    // Text("56".tr,
                    //     style: Theme.of(context).textTheme.headline2),

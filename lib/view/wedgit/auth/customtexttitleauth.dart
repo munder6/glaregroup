@@ -9,7 +9,7 @@ class CustomTextTitleAuth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(text, textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline2,);
+    return Text(text, textAlign: TextAlign.center,style: Theme.of(context).textTheme.displayMedium,);
 
   }
 }

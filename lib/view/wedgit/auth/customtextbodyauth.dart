@@ -11,7 +11,7 @@ class CustomTextBodyAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(text, textAlign: TextAlign.center,style: Theme.of(context).textTheme.headline1,),
+      child: Text(text, textAlign: TextAlign.center,style: Theme.of(context).textTheme.displayLarge,),
     );
   }
 }

@@ -21,7 +21,7 @@ class VerfiyCode extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColor.backgroundcolor,
         elevation: 0.0,
-        title:  Text("25".tr, style: Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey)),
+        title:  Text("25".tr, style: Theme.of(context).textTheme.displayLarge!.copyWith(color: AppColor.grey)),
       ),
       body: Container(
         color: Colors.white,

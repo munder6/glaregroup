@@ -31,7 +31,7 @@ class ProductDetails extends StatelessWidget {
                   children: [
                     Text(translateDtaBase(
                         controller.itemsModel.itemsNameAr,controller.itemsModel.itemsName),
-                      style: Theme.of(context).textTheme.headline2!.copyWith(color: AppColor.primaryColor),
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.primaryColor),
                     ),
                     const SizedBox(height: 5),
                     PriceAndAmount(
@@ -48,10 +48,10 @@ class ProductDetails extends StatelessWidget {
                     Text(
                         translateDtaBase(
                             controller.itemsModel.itemsDescAr,controller.itemsModel.itemsDesc),
-                        style: Theme.of(context).textTheme.bodyText2),
+                        style: Theme.of(context).textTheme.bodyMedium),
                     const SizedBox(height: 15),
                     Text("56".tr,
-                        style: Theme.of(context).textTheme.headline2),
+                        style: Theme.of(context).textTheme.displayMedium),
                     const SizedBox(height: 10,),
                     const SubItems(),
 
