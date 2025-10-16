@@ -78,7 +78,7 @@ class HomeControllerImp extends HomeController {
           categories.clear();
         }
 
-        final its = response['items']?['data'];
+        final its = response['items']?['data'] ?? response['itemsview']?['data'];
         if (its is List) {
           items
             ..clear()

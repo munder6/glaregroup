@@ -10,141 +10,158 @@ import '../core/services/services.dart';
 import '../data/model/itemsmodel.dart';
 import '../data/remote/cart_data.dart';
 
-abstract class ProductDetailsController extends FavoriteController {
-
-}
+abstract class ProductDetailsController extends FavoriteController {}
 
 class ProductDetailsControllerImp extends ProductDetailsController {
+  // Services & Data
+  final ItemsData itemsData = ItemsData(Get.find());
+  final MyServices myServices = Get.find();
+  final CartData cartData = CartData(Get.find());
 
-  ItemsData itemsData = ItemsData(Get.find());
+  // State
   late ItemsModel itemsModel;
-  late StatusRequest statusRequest;
-  int countitems = 0 ;
-  MyServices myServices = Get.find();
-  CartData cartData = CartData(Get.find());
+  StatusRequest statusRequest = StatusRequest.none;
+  int countitems = 0;
 
-
-
-
-  initialData() async {
-    statusRequest = StatusRequest.loading;
-   itemsModel = Get.arguments['itemsmodel'];
-    countitems = await getCountItems(itemsModel.itemsId!);
-   statusRequest = StatusRequest.success;
-   update();
-
-  }
-
-  addItems(String itemsid)async{
-    update();
-    statusRequest = StatusRequest.none;
-    var response = await cartData.addCart( myServices.sharedPreferences.getString("id")!, itemsid);
-    print("=============================== Controller $response ");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        Get.rawSnackbar(
-            duration: const Duration(seconds: 1),
-            barBlur: 10,
-            backgroundColor: AppColor.white,
-            margin: const EdgeInsets.all(20),
-            borderRadius: 20,
-            snackPosition: SnackPosition.TOP,
-            icon: const Icon(Icons.done, color: AppColor.black,),
-            titleText: Text("39".tr, style: const TextStyle(color: AppColor.black),),
-            messageText:Text(
-              "76".tr,
-              style: const TextStyle(
-                  color : AppColor.black,
-                  fontSize: 12),
-            ));
-        // data.addAll(response['data']);
-      } else {
-        statusRequest = StatusRequest.failure ;
-      }
-    }
-    update();
-
-  }
-
-  delete(String itemsid)async{
-
-    statusRequest = StatusRequest.none;
-    update();
-    var response = await cartData.deleteCart( myServices.sharedPreferences.getString("id")!, itemsid);
-    print("=============================== Controller $response ");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        Get.rawSnackbar(
-            duration: Duration(seconds: 1),
-            barBlur: 10,
-            backgroundColor: AppColor.white,
-            margin: const EdgeInsets.all(20),
-            borderRadius: 20,
-            snackPosition: SnackPosition.TOP,
-            icon: const Icon(Icons.done, color: AppColor.black,),
-            titleText: Text("39".tr, style: TextStyle(color: AppColor.black),),
-            messageText:Text(
-              "77".tr,
-              style: const TextStyle(
-                  color : AppColor.black,
-                  fontSize: 12),
-            ));
-        // data.addAll(response['data']);
-      } else {
-        statusRequest = StatusRequest.failure ;
-      }
-    }
-    update();
-
-  }
-
-  getCountItems(String itemsid)async{
-    statusRequest = StatusRequest.loading;
-    var response = await cartData.getCountCart( myServices.sharedPreferences.getString("id")!, itemsid);
-    print("=============================== Controller $response ");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        int countitems = 0 ;
-        countitems = int.parse(response['data']);
-        print("=============================");
-        print("$countitems");
-        return countitems;
-      } else {
-        statusRequest = StatusRequest.failure ;
-      }
-    }
-    update();
-  }
-
-
-  List subitems = [
-    {"name" : "Red", "id" : 1, "active" : "1",},
-    {"name" : "Green", "id" : 2, "active" : "1",},
-    {"name" : "Yellow", "id" : 3, "active" : "1",},
-    {"name" : "Black", "id" : 4, "active" : "1",}
+  // ✅ subitems رجّعنا
+  final List<Map<String, dynamic>> subitems = const [
+    {"name": "Red",    "id": 1, "active": "1"},
+    {"name": "Green",  "id": 2, "active": "1"},
+    {"name": "Yellow", "id": 3, "active": "1"},
+    {"name": "Black",  "id": 4, "active": "1"},
   ];
 
-  add(){
-  addItems(itemsModel.itemsId!);
-    countitems++;
+  // ===== Helpers =====
+  int _toInt(dynamic v) {
+    if (v == null) return 0;
+    if (v is int) return v;
+    if (v is double) return v.toInt();
+    if (v is String) return int.tryParse(v) ?? 0;
+    return 0;
+  }
+
+  String get _userId => myServices.sharedPreferences.getString("id") ?? "";
+
+  // ===== Lifecycle =====
+  @override
+  void onInit() {
+    super.onInit();
+    initialData();
+  }
+
+  // ===== Logic =====
+  Future<void> initialData() async {
+    statusRequest = StatusRequest.loading;
+    update();
+
+    // احضر الـ ItemsModel من الـ arguments
+    final args = Get.arguments;
+    if (args is Map && args['itemsmodel'] is ItemsModel) {
+      itemsModel = args['itemsmodel'] as ItemsModel;
+    } else {
+      statusRequest = StatusRequest.failure;
+      update();
+      return;
+    }
+
+    // جيب عدد القطع من السلة
+    countitems = await getCountItems(itemsModel.itemsId ?? "");
+    statusRequest = StatusRequest.success;
     update();
   }
 
-  remove(){
-    if(countitems > 0){
-     delete(itemsModel.itemsId!);
-      countitems --;
+  Future<void> addItems(String itemsid) async {
+    if (_userId.isEmpty) return;
+
+    // Optimistic UI
+    countitems++;
+    update();
+
+    statusRequest = StatusRequest.none;
+    final response = await cartData.addCart(_userId, itemsid);
+    statusRequest = handlingData(response);
+
+    if (statusRequest == StatusRequest.success && response['status'] == "success") {
+      Get.rawSnackbar(
+        duration: const Duration(seconds: 1),
+        barBlur: 10,
+        backgroundColor: AppColor.white,
+        margin: const EdgeInsets.all(20),
+        borderRadius: 20,
+        snackPosition: SnackPosition.TOP,
+        icon: const Icon(Icons.done, color: AppColor.black),
+        titleText: Text("39".tr, style: const TextStyle(color: AppColor.black)),
+        messageText: const Text(""),
+      );
+    } else {
+      // rollback
+      countitems = (countitems > 0) ? countitems - 1 : 0;
+      statusRequest = StatusRequest.failure;
+    }
+    update();
+  }
+
+  Future<void> delete(String itemsid) async {
+    if (_userId.isEmpty || countitems <= 0) return;
+
+    // Optimistic UI
+    countitems--;
+    update();
+
+    statusRequest = StatusRequest.none;
+    final response = await cartData.deleteCart(_userId, itemsid);
+    statusRequest = handlingData(response);
+
+    if (statusRequest == StatusRequest.success && response['status'] == "success") {
+      Get.rawSnackbar(
+        duration: const Duration(seconds: 1),
+        barBlur: 10,
+        backgroundColor: AppColor.white,
+        margin: const EdgeInsets.all(20),
+        borderRadius: 20,
+        snackPosition: SnackPosition.TOP,
+        icon: const Icon(Icons.done, color: AppColor.black),
+        titleText: Text("39".tr, style: const TextStyle(color: AppColor.black)),
+        messageText: const Text(""),
+      );
+    } else {
+      // rollback
+      countitems++;
+      statusRequest = StatusRequest.failure;
+    }
+    update();
+  }
+
+  Future<int> getCountItems(String itemsid) async {
+    if (_userId.isEmpty || itemsid.isEmpty) return 0;
+
+    statusRequest = StatusRequest.loading;
+    final response = await cartData.getCountCart(_userId, itemsid);
+    statusRequest = handlingData(response);
+
+    if (statusRequest == StatusRequest.success && response['status'] == "success") {
+      // تحويل آمن لأي نوع
+      final int count = _toInt(response['data']);
+      return count;
+    } else {
+      statusRequest = StatusRequest.failure;
       update();
+      return 0;
     }
   }
 
-  @override
-  void onInit() {
-    initialData();
-    super.onInit();
+  // ===== UI Actions =====
+  void add() {
+    final id = itemsModel.itemsId ?? "";
+    if (id.isEmpty) return;
+    addItems(id);
   }
 
+  void remove() {
+    final id = itemsModel.itemsId ?? "";
+    if (id.isEmpty) return;
+    if (countitems > 0) {
+      delete(id);
+    }
+  }
 }
