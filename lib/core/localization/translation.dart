@@ -156,7 +156,8 @@ class MyTranslation extends Translations {
       "150" : "وقت التوصيل",
       "151" : "الرجاء اضافة عنوان التوصيل",
       "152" : "تم اضافة العنوان بنجاح",
-      "153" : "المنتجات الأكثر مبيعاً"
+      "153" : "المنتجات الأكثر مبيعاً",
+      "154" : "كل المنتجات"
     } ,
     "en" : {
       "1" : "Choose Your Language",
@@ -311,7 +312,8 @@ class MyTranslation extends Translations {
       "150" : "Delivery Time",
       "151" : "Please Add Shipping Address",
       "152" : "Address Added Successfully",
-      "153" : "Most Popular Products"
+      "153" : "Most Popular Products",
+      "154" : "All Products"
       }
   };
 

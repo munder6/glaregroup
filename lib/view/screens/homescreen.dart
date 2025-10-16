@@ -8,6 +8,7 @@ import 'package:glaregroup/data/model/itemsmodel.dart';
 import 'package:glaregroup/linkapi.dart';
 import 'package:glaregroup/view/wedgit/home/customcardhome.dart';
 import '../../core/class/handlingdataview.dart';
+import '../wedgit/home/allproductshome.dart';
 import '../wedgit/home/customappbar.dart';
 import '../wedgit/home/customcategorishome.dart';
 import '../wedgit/home/listitemshome.dart';
@@ -68,10 +69,16 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 10,),
                       const  CustomCatHome(),
                       const SizedBox(height: 2,),
+                      Text("154".tr, style: const TextStyle(fontSize: 18, color: AppColor.secondColor),),
+                      const AllProductsHome(),
+                      const SizedBox(height: 20),
                       Text("153".tr, style: const TextStyle(fontSize: 18, color: AppColor.secondColor),),
+                      const SizedBox(height: 12),
                       const ListItemsHome(),
+
                     ],
                   ) : ListItemsSearch(listdatamodel: controller.listdata)
+
           )],
                   ),
           ),
@@ -120,7 +127,8 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
             ),
           ),
         );
-        });
+        }
+        );
   }
 }
 
