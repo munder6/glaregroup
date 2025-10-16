@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:glaregroup/core/constant/color.dart';
 import 'package:glaregroup/core/constant/routes.dart';
 import 'package:glaregroup/core/services/services.dart';
@@ -11,170 +14,184 @@ import '../core/class/statusrequest.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../data/remote/home_data.dart';
 
-abstract class HomeController extends SearchMixController{
-initialData();
-goToPageProductDetails(itemsModel);
-getData();
-goToItems(List categories, int selectedCat, String categoryid);
+abstract class HomeController extends SearchMixController {
+  void initialData();
+  Future<void> getData();
+  void goToItems(List categories, int selectedCat, String categoryid);
+  void goToPageProductDetails(ItemsModel itemsModel);
 }
 
-ItemsData itemsData = ItemsData(Get.find());
+class HomeControllerImp extends HomeController {
+  final MyServices myServices = Get.find();
+  final HomeData homeData = HomeData(Get.find());
 
-class HomeControllerImp extends HomeController{
-  MyServices myServices = Get.find();
-  String? username ;
-  String? id ;
+  String? username;
+  String? id;
   String? lang;
-  HomeData homeData = HomeData(Get.find());
-  List categories = [];
-  List items = [];
-  List settingdata = [];
+
+  final List categories = [];
+  final List items = [];
+  final List settingdata = [];
+
   String titlehomecard = "Loading ...";
-  String bodyhomecard ="Loading ..." ;
-  String deliverytime = "Loading ..." ;
-
-
+  String bodyhomecard = "Loading ...";
+  String deliverytime = "Loading ...";
 
   @override
-  initialData() {
+  void onInit() {
+    search = TextEditingController();
+    initialData();
+    getData();
+    super.onInit();
+  }
 
+  @override
+  void onClose() {
+    search?.dispose();
+    super.onClose();
+  }
+
+  @override
+  void initialData() {
     lang = myServices.sharedPreferences.getString("lang");
     username = myServices.sharedPreferences.getString("username");
     id = myServices.sharedPreferences.getString("id");
   }
 
-
-@override
-  void onInit() {
-  search = TextEditingController();
-  getData();
-  _loadResources(true);
-  refreshPage();
-    initialData();
-    super.onInit();
-  }
-
-  // @override
-  // getData() async {
-  //   statusRequest = StatusRequest.loading;
-  //   var response = await homeData.getData();
-  //     print("=============================== Controller $response ");
-  //   statusRequest = handlingData(response);
-  //   if (StatusRequest.success == statusRequest) {
-  //     if (response['status'] == "success") {
-  //       categories.addAll(response['categories']['data']);
-  //       items.addAll(response['items']['data']);
-  //       settingdata.addAll(response['setting']['data']);
-  //       titlehomecard = settingdata[0]['setting_titlehome'];
-  //       bodyhomecard = settingdata[0]['setting_bodyhome'];
-  //       deliverytime = settingdata[0]['setting_deliverytime'];
-  //       myServices.sharedPreferences.setString("deliverytime", deliverytime);
-  //
-  //     } else {
-  //       statusRequest = StatusRequest.failure ;
-  //     }
-  //   }
-  //   update();
-  // }
-
-
   @override
-  getData() async {
+  Future<void> getData() async {
     statusRequest = StatusRequest.loading;
-    var response = await homeData.getData();
-    print("=============================== Controller $response ");
+    update();
+
+    final response = await homeData.getData();
+    log("=============================== Controller $response");
     statusRequest = handlingData(response);
+
     if (StatusRequest.success == statusRequest) {
-      if (response != null && response['status'] == "success") {
-        if (response['categories'] != null && response['categories']['data'] != null) {
-          categories.addAll(response['categories']['data']);
+      if (response != null && response is Map && response['status'] == "success") {
+        final cats = response['categories']?['data'];
+        if (cats is List) {
+          categories
+            ..clear()
+            ..addAll(cats);
+        } else {
+          categories.clear();
         }
-        if (response['items'] != null && response['items']['data'] != null) {
-          items.addAll(response['items']['data']);
+
+        final its = response['items']?['data'];
+        if (its is List) {
+          items
+            ..clear()
+            ..addAll(its);
+        } else {
+          items.clear();
         }
-        if (response['setting'] != null && response['setting']['data'] != null) {
-          settingdata.addAll(response['setting']['data']);
-          titlehomecard = settingdata[0]['setting_titlehome'];
-          bodyhomecard = settingdata[0]['setting_bodyhome'];
-          // deliverytime = settingdata[0]['setting_deliverytime'];
-          // myServices.sharedPreferences.setString("deliverytime", deliverytime);
+
+        final settings = response['setting']?['data'];
+        if (settings is List && settings.isNotEmpty) {
+          settingdata
+            ..clear()
+            ..addAll(settings);
+
+          final first = settings.first;
+          if (first is Map) {
+            titlehomecard = (first['setting_titlehome'] as String?) ?? titlehomecard;
+            bodyhomecard  = (first['setting_bodyhome']  as String?) ?? bodyhomecard;
+
+            final dt = first['setting_deliverytime'] as String?;
+            if (dt != null && dt.isNotEmpty) {
+              deliverytime = dt;
+              myServices.sharedPreferences.setString("deliverytime", dt);
+            }
+          }
+        } else {
+          settingdata.clear();
         }
       } else {
         statusRequest = StatusRequest.failure;
       }
     }
+
     update();
   }
 
-
-  Future<void>_loadResources(bool reload) async {
+  Future<void> refreshPage() async {
     await getData();
   }
 
-  refreshPage(){
-    getData();
-  }
-
-
-
   @override
-  goToItems(List categories, selectedCat,categoryid) {
-   Get.toNamed(AppRoute.itemsScreen, arguments: {
-    "categories" : categories,
-     "selectedCat" : selectedCat,
-     "catid" : categoryid
-   });
+  void goToItems(List categories, int selectedCat, String categoryid) {
+    Get.toNamed(
+      AppRoute.itemsScreen,
+      arguments: {
+        "categories": categories,
+        "selectedCat": selectedCat,
+        "catid": categoryid,
+      },
+    );
   }
 
   @override
-  goToPageProductDetails(itemsModel){
-    Get.toNamed("productdetails", arguments: {
-      "itemsmodel" : itemsModel,
-    });
+  void goToPageProductDetails(ItemsModel itemsModel) {
+    Get.toNamed(
+      "productdetails",
+      arguments: {
+        "itemsmodel": itemsModel,
+      },
+    );
   }
 }
-
 class SearchMixController extends GetxController {
+  final HomeData homeData = HomeData(Get.find());
 
-  List<ItemsModel> listdata = [];
-  HomeData homeData = HomeData(Get.find());
   late StatusRequest statusRequest;
   TextEditingController? search;
   bool isSearch = false;
 
+  final List<ItemsModel> listdata = [];
 
-  checkSearch (val){
-    if(val == ""){
+  void checkSearch(String val) {
+    if (val.isEmpty) {
       statusRequest = StatusRequest.none;
       isSearch = false;
+      update();
+      return;
     }
     update();
   }
 
-  onSearchItems (){
-    searchData();
+  Future<void> onSearchItems() async {
     isSearch = true;
     update();
+    await searchData();
   }
 
-
-  searchData() async {
-
+  Future<void> searchData() async {
+    final query = search?.text ?? "";
     statusRequest = StatusRequest.loading;
-    var response = await homeData.searchData(search!.text);
-    print("=============================== Controller $response ");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      if (response['status'] == "success") {
-        listdata.clear();
-        List resposedata = response['data'];
-        listdata.addAll(resposedata.map((e) => ItemsModel.fromJson(e)));
+    update();
 
+    final response = await homeData.searchData(query);
+    log("=============================== Search Controller $response ");
+    statusRequest = handlingData(response);
+
+    if (StatusRequest.success == statusRequest) {
+      if (response is Map && response['status'] == "success") {
+        final data = response['data'];
+        if (data is List) {
+          listdata
+            ..clear()
+            ..addAll(data.map((e) => ItemsModel.fromJson(e)).toList());
+        } else {
+          listdata.clear();
+        }
       } else {
-        statusRequest = StatusRequest.failure ;
+        statusRequest = StatusRequest.failure;
       }
     }
+
     update();
   }
 }
 
+final ItemsData itemsData = ItemsData(Get.find());

@@ -51,7 +51,7 @@ class LoginControllerImp extends LoginController {
       if (StatusRequest.success == statusRequest) {
         if (response['status'].toString() == "success") {
           // Convert to String
-          if(response['data']['users_approve'] == "1"){
+          if(response['data']['users_approve'].toString() == "1"){
           myServices.sharedPreferences.setString("id", response['data']['users_id'].toString()); // Convert to String
           print("======================================$response");
           String userid = myServices.sharedPreferences.getString("id")!;

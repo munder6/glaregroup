@@ -58,7 +58,7 @@ class Categories extends GetView<HomeControllerImp> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 15),
               height: 50,
-              width: 130,
+              width: 152,
               child:
               Row(
                 children: [
@@ -76,22 +76,4 @@ class Categories extends GetView<HomeControllerImp> {
   }
 }
 
-
-// Container(
-// decoration: BoxDecoration(
-//
-// borderRadius: BorderRadius.circular(12),
-//
-// color: AppColor.threeColor,
-// ),
-// padding: const EdgeInsets.symmetric(horizontal: 5),
-// height: 64.5,
-// width: 64.5,
-// child:
-// SvgPicture.network(
-// "${AppLink.imageCategories}/${categoriesModel.categoriesImage}"
-// ),
-// ),
-// const SizedBox(height: 3,),
-// Text("${translateDtaBase(categoriesModel.categoriesNameAr, categoriesModel.categoriesName)}")
 
