@@ -3,7 +3,7 @@ class AppLink {
   //======================== MainApi =========================//
 
   //static const String server = "https://glaregroup.site/glaregroupapi";
-  static const String server = "https://glare.cu.ma/glaregroupapi";
+  static const String server = "http://localhost/glaregroupapi2";
   //static const String imageStatic = "https://glaregroup.site/glaregroupapi/upload";
   static const String imageStatic = "https://glare.cu.ma/glaregroupapi/upload";
 
